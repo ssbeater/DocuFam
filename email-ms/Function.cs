@@ -16,7 +16,7 @@ namespace EmailMS
         public MyHttpFunction()
         {
             _configuration = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory) // Establece la ruta base como el directorio actual
+                .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
         }
@@ -34,12 +34,15 @@ namespace EmailMS
                     return;
                 }
 
-                var _sendGridApiKey = _configuration["Settings:SENDGRID_API_KEY"];
+                var _sendGridApiKey = _configuration["SENDGRID_API_KEY"];
+                var _sendGridFromEmail = _configuration["SENDGRID_FROM_EMAIL"];
+                var _sendGridFromName = _configuration["SENDGRID_FROM_NAME"];
+
                 var client = new SendGridClient(_sendGridApiKey);
 
                 var msg = new SendGridMessage
                 {
-                    From = new EmailAddress("santiagosuarez@fymtech.com", "Santiago Suarez"),
+                    From = new EmailAddress(_sendGridFromEmail, _sendGridFromName),
                     Subject = emailRequest.Subject,
                     HtmlContent = emailRequest.HtmlContent
                 };
