@@ -43,4 +43,4 @@ msbuild.err
 msbuild.wrn
 
 # app settings
-appsettings.json
+# appsettings.*.json
