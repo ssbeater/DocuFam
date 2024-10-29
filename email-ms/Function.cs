@@ -16,9 +16,13 @@ public class Function : IHttpFunction
 
     public Function()
     {
+        var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
+
         _configuration = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
             .Build();
     }
 
