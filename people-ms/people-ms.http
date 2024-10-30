@@ -1,6 +1,39 @@
-@people_ms_HostAddress = http://localhost:5281
+@people_ms_HostAddress = http://localhost:5011
 
-GET {{people_ms_HostAddress}}/weatherforecast/
+### Get all people
+GET {{people_ms_HostAddress}}/api/people
 Accept: application/json
 
-###
+### Get a person by ID
+GET {{people_ms_HostAddress}}/api/people/2
+Accept: application/json
+
+### Create a new person
+POST {{people_ms_HostAddress}}/api/people
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "dateOfBirth": "1990-01-01",
+    "email": "john.doe@example.com",
+    "phoneNumber": "123-456-7890",
+    "address": "123 Main St, Anytown, USA"
+}
+
+### Update an existing person
+PUT {{people_ms_HostAddress}}/api/people/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "dateOfBirth": "1990-01-01",
+    "email": "john.doe@example.com",
+    "phoneNumber": "987-654-3210",  // Updated phone number
+    "address": "123 Main St, Anytown, USA"
+}
+
+### Delete a person
+DELETE {{people_ms_HostAddress}}/api/people/1

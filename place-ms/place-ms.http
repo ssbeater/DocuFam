@@ -1,6 +1,33 @@
-@place_ms_HostAddress = http://localhost:5021
+@people_ms_HostAddress = http://localhost:5021
 
-GET {{place_ms_HostAddress}}/weatherforecast/
+### Get all places
+GET {{people_ms_HostAddress}}/api/places
 Accept: application/json
 
-###
+### Get a place by ID
+GET {{people_ms_HostAddress}}/api/places/1
+Accept: application/json
+
+### Create a new place
+POST {{people_ms_HostAddress}}/api/places
+Content-Type: application/json
+
+{
+    "name": "Central Park",
+    "description": "A large public park in New York City.",
+    "location": "New York, NY, USA"
+}
+
+### Update an existing place
+PUT {{people_ms_HostAddress}}/api/places/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "My home",
+    "description": "Gridman Home",
+    "location": "Tokyo, Japan"
+}
+
+### Delete a place
+DELETE {{people_ms_HostAddress}}/api/places/1
