@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using people_ms.models;
 
@@ -11,9 +12,11 @@ using people_ms.models;
 namespace people_ms.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    partial class PeopleContextModelSnapshot : ModelSnapshot
+    [Migration("20241101153934_UsePepoleGuid")]
+    partial class UsePepoleGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

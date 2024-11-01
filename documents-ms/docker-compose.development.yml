@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  firestore-emulator:
+    image: google/cloud-sdk:latest
+    container_name: firestore-emulator
+    command: gcloud beta emulators firestore start --host-port=0.0.0.0:6001
+    ports:
+      - "6001:6001"
+    volumes:
+      - firestore_data:/firestore-emulator-data
+    environment:
+      - FIRESTORE_PROJECT_ID=demo-project
+
+volumes:
+  firestore_data:

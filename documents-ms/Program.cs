@@ -1,9 +1,21 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.Extensions.Options;
+using documents_ms.Services;
+using documents_ms.Data.Firestore;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddEnvironmentVariables();
+
+builder.Services.Configure<FirestoreSettings>(builder.Configuration.GetSection("FirestoreSettings"));
+builder.Services.AddSingleton(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<FirestoreSettings>>().Value;
+    return new FirestoreService(settings).FirestoreDb;
+});
+
+builder.Services.AddScoped<PeopleService>();
+builder.Services.AddScoped<ComisaryCaseService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

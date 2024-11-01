@@ -25,7 +25,7 @@ namespace people_ms.Controllers
 
         // GET: api/Peoples/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<People>> GetPeople(int id)
+        public async Task<ActionResult<People>> GetPeople(Guid id)
         {
             var People = await _context.Peoples.FindAsync(id);
 
@@ -47,7 +47,7 @@ namespace people_ms.Controllers
 
         // PUT: api/Peoples/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPeople(int id, People People)
+        public async Task<IActionResult> PutPeople(Guid id, People People)
         {
             if (id != People.Id)
                 return BadRequest();
@@ -71,7 +71,7 @@ namespace people_ms.Controllers
 
         // DELETE: api/Peoples/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePeople(int id)
+        public async Task<IActionResult> DeletePeople(Guid id)
         {
             var People = await _context.Peoples.FindAsync(id);
             if (People == null)
@@ -83,7 +83,7 @@ namespace people_ms.Controllers
             return NoContent();
         }
 
-        private bool PeopleExists(int id)
+        private bool PeopleExists(Guid id)
         {
             return _context.Peoples.Any(e => e.Id == id);
         }
