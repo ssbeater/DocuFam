@@ -1,6 +1,35 @@
-@documents_ms_HostAddress = http://localhost:5069
+@host = http://localhost:5030
 
-GET {{documents_ms_HostAddress}}/weatherforecast/
+### Get all documents
+GET {{host}}/api/documents
 Accept: application/json
 
-###
+### Get a document by ID
+GET {{host}}/api/documents/TaNHIxIjaQvbm1EMzbTp
+Accept: application/json
+
+### Create a new document
+POST {{host}}/api/documents
+Content-Type: application/json
+
+{
+    "id": "Nm1yHrF7KoAH65FDynSU",
+    "patientId": "gridman-2",
+    "documentType": "Initial Assessment",
+    "content": "Document content goes here",
+    "dateCreated": "2023-10-31T12:00:00Z"
+}
+
+### Update a document
+PUT {{host}}/api/documents/IL8lOJGwdN2kIUMZNjFV
+Content-Type: application/json
+
+{
+    "patientId": "Santiago",
+    "documentType": "Suarez",
+    "content": "El mas bello",
+    "dateCreated": "2024-11-01T03:12:20.720137Z"
+}
+
+### Delete a document
+DELETE {{host}}/api/documents/1

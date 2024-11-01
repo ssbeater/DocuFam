@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - FirestoreSettings__CredentialsPath=/app/Secrets/firestore-admin.json  # GCP Credentials Path
+      - FirestoreSettings__UseEmulator=false
+      - FirestoreSettings__EmulatorHost=localhost:6001
+      - FirestoreSettings__ProjectId=cbse-2024ii-438402
+      - FirestoreSettings__DatabaseId=documents-db-dev
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/Secrets/firestore-admin.json
+    ports:
+      - "5030:5030"
+    volumes:
+      - ./Secrets/firestore-admin.json:/app/Secrets/firestore-admin.json
+    depends_on:
+      - firestore-emulator
+
+  firestore-emulator:
+    image: google/cloud-sdk:latest
+    container_name: firestore-emulator
+    command: gcloud beta emulators firestore start --host-port=0.0.0.0:6001
+    ports:
+      - "6001:6001"
+    volumes:
+      - firestore_data:/firestore-emulator-data
+    environment:
+      - FIRESTORE_PROJECT_ID=demo-project
+
+volumes:
+  firestore_data:
