@@ -1,44 +1,21 @@
-using Google.Api.Gax;
-using Google.Cloud.Firestore;
+using Microsoft.Extensions.Options;
+using documents_ms.Services;
+using documents_ms.Data.Firestore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 
-var firestoreSettings = builder.Configuration.GetSection("FirestoreSettings");
-var useEmulator = firestoreSettings.GetValue<bool>("UseEmulator");
-var emulatorHost = firestoreSettings.GetValue<string>("EmulatorHost");
-var credentialPath = firestoreSettings.GetValue<string>("CredentialPath");
-var projectId = firestoreSettings.GetValue<string>("ProjectId");
-var databaseId = firestoreSettings.GetValue<string>("DatabaseId");
-
-Console.WriteLine(projectId);
-
-// Firestore service
-FirestoreDb firestoreDb;
-
-if (useEmulator)
+builder.Services.Configure<FirestoreSettings>(builder.Configuration.GetSection("FirestoreSettings"));
+builder.Services.AddSingleton(sp =>
 {
-    Environment.SetEnvironmentVariable("FIRESTORE_EMULATOR_HOST", emulatorHost);
-    firestoreDb = new FirestoreDbBuilder
-    {
-        ProjectId = projectId,
-        EmulatorDetection = EmulatorDetection.EmulatorOrProduction
-    }.Build();
-}
-else
-{
-    firestoreDb = new FirestoreDbBuilder
-    {
-        ProjectId = projectId,
-        CredentialsPath = credentialPath,
-        DatabaseId = databaseId
-    }.Build();
-}
+    var settings = sp.GetRequiredService<IOptions<FirestoreSettings>>().Value;
+    return new FirestoreService(settings).FirestoreDb;
+});
 
-builder.Services.AddSingleton(firestoreDb);
+builder.Services.AddScoped<PeopleService>();
+builder.Services.AddScoped<ComisaryCaseService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
