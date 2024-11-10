@@ -31,6 +31,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
 
   docker-build-and-push:
+    depends-on: build-and-test
     runs-on: ubuntu-latest
 
     steps:
@@ -52,7 +53,7 @@ jobs:
     - name: Build and push Docker image PLACE-MS
       run: |
         cd ./place-ms
-        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:latest
+        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:latest .
         docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:latest
 
     - name: Build and push Docker image PEOPLE-MS
