@@ -11,7 +11,7 @@ env:
   PLACE_MS_IMAGE_NAME: place-ms
   PEOPLE_MS_IMAGE_NAME: people-ms
   DOCS_MS_IMAGE_NAME: documents-ms
-  COMMIT_SHA: ${{ github.sha::8 }}
+  COMMIT_SHA: ${{ github.sha }}
 
 jobs:
   build-and-test:
@@ -52,17 +52,17 @@ jobs:
     - name: Build and push Docker image PLACE-MS
       run: |
         cd ./place-ms
-        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA }}
-        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA }}
+        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA.substr(0,8) }}
+        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PLACE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA.substr(0,8) }}
 
     - name: Build and push Docker image PEOPLE-MS
       run: |
         cd ./people-ms
-        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PEOPLE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA }} .
-        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PEOPLE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA }}
+        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PEOPLE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA.substr(0,8) }} .
+        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PEOPLE_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA.substr(0,8) }}
         
     - name: Build and push Docker image DOCUMENTS-MS
       run: |
         cd ./documents-ms
-        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.DOCS_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA }} .
-        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.DOCS_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA }}
+        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.DOCS_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA.substr(0,8) }} .
+        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.DOCS_MS_IMAGE_NAME }}:${{ env.COMMIT_SHA.substr(0,8) }}
