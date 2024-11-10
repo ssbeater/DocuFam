@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+
+  dev_people_ms:
+    build: .
+    ports:
+      - "5010:5010"
+    depends_on:
+      - mysql_db
+    networks:
+      - dev_people_net
+
   mysql_db:
     image: mysql:8.0
     container_name: people_mysql_db
@@ -13,3 +23,9 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
+    networks:
+      - dev_people_net
+
+networks:
+  dev_people_net:
+    driver: bridge
