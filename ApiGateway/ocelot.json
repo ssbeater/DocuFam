@@ -1,0 +1,43 @@
+{
+    "Routes": [
+        {
+          "DownstreamPathTemplate": "/api/{everything}",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "${PEOPLE_MS_HOST}",
+              "Port": 5010
+            }
+          ],
+          "UpstreamPathTemplate": "/gateway/people-ms/{everything}",
+          "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        },
+        {
+          "DownstreamPathTemplate": "/api/{everything}",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+                "Host": "#{PLACE_MS_HOST}",
+                "Port": 5020
+            }
+          ],
+          "UpstreamPathTemplate": "/gateway/place-ms/{everything}",
+          "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        },
+        {
+          "DownstreamPathTemplate": "/api/{everything}",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+                "Host": "#{DOCS_MS_HOST}",
+                "Port": 5030
+            }
+          ],
+          "UpstreamPathTemplate": "/gateway/docs-ms/{everything}",
+          "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+        }
+    ],
+    "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:6010"
+    }
+  }

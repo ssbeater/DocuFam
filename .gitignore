@@ -44,3 +44,7 @@ msbuild.wrn
 
 # app settings
 appsettings.*.json
+
+# docker volumes
+mysql/
+firestore_data/

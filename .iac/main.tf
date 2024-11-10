@@ -14,3 +14,17 @@ module "Registry" {
 
     depends_on = [ module.APIs ]
 }
+
+module "CloudSQL" {
+    source = "./modules/CloudSQL"
+    region = var.region
+
+    depends_on = [ module.APIs ]
+}
+
+module "Firestore" {
+    source = "./modules/Firestore"
+    region = var.region
+
+    depends_on = [ module.APIs ]
+}

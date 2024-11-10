@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "place-ms", "place-ms\place-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "email-ms", "email-ms\email-ms.csproj", "{57C52368-E3F1-4D11-8249-8BCE7F2FBBA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{1740A78E-1D79-4745-84F0-B0FD25B3F910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{57C52368-E3F1-4D11-8249-8BCE7F2FBBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C52368-E3F1-4D11-8249-8BCE7F2FBBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57C52368-E3F1-4D11-8249-8BCE7F2FBBA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1740A78E-1D79-4745-84F0-B0FD25B3F910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1740A78E-1D79-4745-84F0-B0FD25B3F910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1740A78E-1D79-4745-84F0-B0FD25B3F910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1740A78E-1D79-4745-84F0-B0FD25B3F910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -11,7 +11,7 @@ env:
   PLACE_MS_IMAGE_NAME: place-ms
   PEOPLE_MS_IMAGE_NAME: people-ms
   DOCS_MS_IMAGE_NAME: documents-ms
-  COMMIT_SHA: ${{ github.sha }}
+  API_GW_IMAGE_NAME: api-gw
 
 jobs:
   build-and-test:
@@ -49,7 +49,7 @@ jobs:
     - name: Configure docker for GCP Artifact Registry
       run: |
         gcloud auth configure-docker ${{ env.GCP_REGION }}
-    
+
     - name: Build and push Docker image PLACE-MS
       run: |
         cd ./place-ms
@@ -61,15 +61,21 @@ jobs:
         cd ./people-ms
         docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PEOPLE_MS_IMAGE_NAME }}:latest .
         docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.PEOPLE_MS_IMAGE_NAME }}:latest
-        
+
     - name: Write Documents-ms Firestore Adm Secret to JSON file
       env:
         DOCS_FIRESTORE_ADMIN: ${{ secrets.DOCS_FIRESTORE_ADMIN }}
       run: |
         echo "${DOCS_FIRESTORE_ADMIN}" > ./documents-ms/Secrets/firestore-admin.json
-        
+
     - name: Build and push Docker image DOCUMENTS-MS
       run: |
         cd ./documents-ms
         docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.DOCS_MS_IMAGE_NAME }}:latest .
         docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.DOCS_MS_IMAGE_NAME }}:latest
+
+    - name: Build and push Docker image API GATEWAY
+      run: |
+        cd ./documents-ms
+        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.API_GW_IMAGE_NAME }}:latest .
+        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.API_GW_IMAGE_NAME }}:latest

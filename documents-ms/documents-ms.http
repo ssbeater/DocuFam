@@ -1,11 +1,11 @@
-@host = http://localhost:5031
+@host = http://localhost:5030
 
 ### Get all cases
 GET {{host}}/api/ComisaryCase
 Accept: application/json
 
 ### Get a case by ID
-GET {{host}}/api/ComisaryCase/8bfac5d6-1236-4dc1-b8d7-0d70578ad0ee
+GET {{host}}/api/ComisaryCase/3fa85f64-5717-4562-b3fc-2c963f66afa6
 Accept: application/json
 
 ### Create a new case
@@ -15,6 +15,6 @@ Content-Type: application/json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "title": "string",
-  "patientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "offenderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  "patientId": "08dd01be-a178-49b9-8776-53835210ee01",
+  "offenderId": "08dd01be-a178-49b9-8776-53835210ee01"
 }

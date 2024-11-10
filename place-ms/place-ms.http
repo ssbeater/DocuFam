@@ -1,4 +1,4 @@
-@people_ms_HostAddress = http://localhost:5021
+@people_ms_HostAddress = http://localhost:5020
 
 ### Get all places
 GET {{people_ms_HostAddress}}/api/places

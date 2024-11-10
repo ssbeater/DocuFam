@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+
+  api_gateway:
+    build: ./ApiGateway
+    environment:
+      - PEOPLE_MS_HOST=people_ms
+      - PEOPLE_MS_PORT=5010
+      - PLACE_MS_HOST=place_ms
+      - PLACE_MS_PORT=5020
+      - DOCS_MS_HOST=docs_ms
+      - DOCS_MS_PORT=5030
+    ports:
+      - "6010:6010"
+    networks:
+      - gateway
+    depends_on:
+      - docs_ms
+      - people_ms
+      - place_ms
+
+  docs_ms:
+    build:
+      context: ./documents-ms
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/Secrets/firestore-admin.json
+      - FirestoreSettings__CredentialsPath=/app/Secrets/firestore-admin.json  # GCP Credentials Path
+      - FirestoreSettings__UseEmulator=false
+      - FirestoreSettings__EmulatorHost=localhost:6001
+      - FirestoreSettings__ProjectId=cbse-2024ii-438402
+      - FirestoreSettings__DatabaseId=docufam-docs-db
+      - ApiSetting__PeopleBaseUrl=http://people_ms:5010/api
+    ports:
+      - "5030:5030"
+    volumes:
+      - ./documents-ms/Secrets/firestore-admin.json:/app/Secrets/firestore-admin.json
+    networks:
+      - docs_people
+      - gateway
+
+  people_ms:
+    build: ./people-ms
+    ports:
+      - "5010:5010"
+    networks:
+      - docs_people
+      - gateway
+
+  place_ms:
+    build: ./place-ms
+    ports:
+      - "5020:5020"
+    networks:
+      - gateway
+
+networks:
+  docs_people:
+    driver: bridge
+  gateway:
+    driver: bridge

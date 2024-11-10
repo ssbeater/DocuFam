@@ -1,11 +1,11 @@
-@people_ms_HostAddress = http://localhost:5011
+@people_ms_HostAddress = http://localhost:5010
 
 ### Get all people
 GET {{people_ms_HostAddress}}/api/people
 Accept: application/json
 
 ### Get a person by ID
-GET {{people_ms_HostAddress}}/api/people/2
+GET {{people_ms_HostAddress}}/api/People/08dd01be-a178-49b9-8776-53835210ee01
 Accept: application/json
 
 ### Create a new person

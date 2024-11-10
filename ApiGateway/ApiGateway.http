@@ -1,0 +1,13 @@
+@host = http://localhost:6010
+
+### People - Get people
+GET {{host}}/gateway/people-ms/people
+Accept: application/json
+
+### Places - Get places
+GET {{host}}/gateway/place-ms/places
+Accept: application/json
+
+### Docs - Get all cases
+GET {{host}}/gateway/docs-ms/ComisaryCase
+Accept: application/json
