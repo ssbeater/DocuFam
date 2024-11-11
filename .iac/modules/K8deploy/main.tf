@@ -44,10 +44,10 @@ resource "kubernetes_deployment" "people-ms" {
       spec {
         container {
           name  = "people-ms"
-          image = "us-east4-docker.pkg.dev/cbse-2024ii-438402/docufam-reg/people-ms:latest"
+          image = "${var.artifact_registry_url}/people-ms:latest"
           env {
             name  = "ConnectionStrings__DefaultConnection"
-            value = "Server=34.150.141.218;Port=3306;Database=people-db;User=isbn;Password=123;"
+            value = "Server=${var.docufam_db_instance_ip};Port=3306;Database=people-db;User=isbn;Password=${var.isbn_db_pass};"
           }
           port {
             container_port = 5010
@@ -95,10 +95,10 @@ resource "kubernetes_deployment" "place-ms" {
       spec {
         container {
           name  = "place-ms"
-          image = "us-east4-docker.pkg.dev/cbse-2024ii-438402/docufam-reg/place-ms:latest"
+          image = "${var.artifact_registry_url}/place-ms:latest"
           env {
             name  = "ConnectionStrings__DefaultConnection"
-            value = "Server=34.150.141.218;Port=3306;Database=place-db;User=isbn;Password=123;"
+            value = "Server=${var.docufam_db_instance_ip};Port=3306;Database=place-db;User=isbn;Password=${var.isbn_db_pass};"
           }
           port {
             container_port = 5020
@@ -146,7 +146,7 @@ resource "kubernetes_deployment" "documents-ms" {
       spec {
         container {
           name  = "documents-ms"
-          image = "us-east4-docker.pkg.dev/cbse-2024ii-438402/docufam-reg/documents-ms:latest"
+          image = "${var.artifact_registry_url}/documents-ms:latest"
           env {
             name  = "GOOGLE_APPLICATION_CREDENTIALS"
             value = "/app/Secrets/firestore-admin.json"
@@ -165,7 +165,7 @@ resource "kubernetes_deployment" "documents-ms" {
           }
           env {
             name  = "FirestoreSettings__ProjectId"
-            value = "cbse-2024ii-438402"
+            value = var.google_project_id
           }
           env {
             name  = "FirestoreSettings__DatabaseId"
@@ -173,7 +173,7 @@ resource "kubernetes_deployment" "documents-ms" {
           }
           env {
             name  = "ApiSetting__PeopleBaseUrl"
-            value = "http://people-ms.docufam.svc.cluster.local/api"
+            value = "http://people-ms.docufam.svc.cluster.local:5010/api"
           }
           port {
             container_port = 5030
@@ -221,30 +221,30 @@ resource "kubernetes_deployment" "api_gateway" {
       spec {
         container {
           name  = "api-gateway"
-          image = "us-east4-docker.pkg.dev/cbse-2024ii-438402/docufam-reg/api-gw:latest"
+          image = "${var.artifact_registry_url}/api-gw:latest"
           env {
             name  = "PEOPLE_MS_HOST"
-            value = "http://people-ms.docufam.svc.cluster.local"
+            value = "people-ms.docufam.svc.cluster.local"
           }
           env {
             name  = "PEOPLE_MS_PORT"
-            value = "80"
+            value = "5010"
           }
           env {
             name  = "PLACE_MS_HOST"
-            value = "http://place-ms.docufam.svc.cluster.local"
+            value = "place-ms.docufam.svc.cluster.local"
           }
           env {
             name  = "PLACE_MS_PORT"
-            value = "80"
+            value = "5020"
           }
           env {
             name  = "DOCS_MS_HOST"
-            value = "http://documents-ms.docufam.svc.cluster.local"
+            value = "documents-ms.docufam.svc.cluster.local"
           }
           env {
             name  = "DOCS_MS_PORT"
-            value = "80"
+            value = "5030"
           }
           port {
             container_port = 6010

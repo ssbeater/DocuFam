@@ -41,6 +41,11 @@ resource "google_sql_database" "people_db" {
 resource "google_sql_user" "isbn_user" {
   name     = "isbn"
   instance = google_sql_database_instance.docufam_pp_db.name
-  password = "123"
+  password = var.isbn_password
   host     = "%"
+}
+
+output "docufam_pp_db_instance_ip" {
+  value       = google_sql_database_instance.docufam_pp_db.public_ip_address # o private_ip_address, según corresponda
+  description = "IP pública de la instancia de Cloud SQL"
 }

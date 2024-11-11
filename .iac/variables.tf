@@ -1,21 +1,25 @@
 variable "region" {
-    type = string
-    default = "region"
+  type    = string
+  default = "region"
 }
 
 variable "region_gke" {
-    type = string
-    default = "region"
+  type    = string
+  default = "region"
 }
 
 
 variable "google_project_id" {
-    type = string
+  type = string
 }
 
 variable "registry_repo_id" {
-    type = string
-    default = "docufam_reg"
+  type    = string
+  default = "docufam_reg"
+}
+
+variable "isbn_db_pass" {
+  type = string
 }
 
 variable "network_id" {
