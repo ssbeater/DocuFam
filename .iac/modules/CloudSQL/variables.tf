@@ -1,3 +1,7 @@
 variable "region" {
-    type = string
+  type = string
+}
+
+variable "isbn_password" {
+  type = string
 }

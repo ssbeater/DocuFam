@@ -12,6 +12,7 @@ resource "google_project_service" "firestore" {
 resource "google_project_service" "storage" {
   project = var.google_project_id
   service = "storage.googleapis.com"
+
   disable_dependent_services = true
 }
 
