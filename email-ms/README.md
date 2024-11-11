@@ -49,7 +49,7 @@ Confirm that the application responds and, if configured correctly, sends an ema
 Deploy the function using Google Cloud’s gcloud CLI with the following command:
 
 ```bash
-gcloud functions deploy csharp-http-function --gen2 --entry-point=EmailMs.Function --runtime=dotnet8 --region=us-east4 --source=. --trigger-http --allow-unauthenticated
+gcloud functions deploy email-fun --gen2 --entry-point=EmailMs.Function --runtime=dotnet8 --region=us-east4 --source=. --trigger-http --allow-unauthenticated
 ```
 ### Validate Deployment
 To verify that the deployment was successful, use:
