@@ -76,6 +76,6 @@ jobs:
 
     - name: Build and push Docker image API GATEWAY
       run: |
-        cd ./documents-ms
+        cd ./ApiGateway
         docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.API_GW_IMAGE_NAME }}:latest .
         docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.API_GW_IMAGE_NAME }}:latest
