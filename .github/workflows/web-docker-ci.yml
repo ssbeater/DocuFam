@@ -1,0 +1,39 @@
+name: Docker Image CD
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - docufam-web/**
+
+env:
+  GCP_REGION: us-east4-docker.pkg.dev
+  GCP_PROJECT_ID: cbse-2024ii-438402
+  GCP_REPO_NAME: docufam-reg
+  WEB_PORTAL_IMAGE_NAME: web-portal
+
+jobs:
+  docker-build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_KEY }}
+
+    - name: Configure docker for GCP Artifact Registry
+      run: |
+        gcloud auth configure-docker ${{ env.GCP_REGION }}
+
+    - name: Build and push Docker image PLACE-MS
+      run: |
+        cd ./docufam-web
+        docker build -t ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.WEB_PORTAL_IMAGE_NAME }}:latest .
+        docker push ${{ env.GCP_REGION }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_REPO_NAME }}/${{ env.WEB_PORTAL_IMAGE_NAME }}:latest
