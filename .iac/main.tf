@@ -70,3 +70,17 @@ module "K8deploy" {
 
   depends_on = [module.APIs, module.Registry, module.CloudSQL, module.GKE, null_resource.wait_for_cluster]
 }
+
+resource "null_resource" "wait_for_k8deploy" {
+  depends_on = [module.K8deploy]
+}
+
+module "CloudRunWebPortal" {
+  source = "./modules/CloudRunWebPortal"
+
+  region                = var.region
+  api_gateway_url       = var.api_gw_url
+  artifact_registry_url = module.Registry.registry_url
+
+  depends_on = [module.K8deploy, null_resource.wait_for_k8deploy]
+}

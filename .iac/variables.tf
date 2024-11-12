@@ -29,3 +29,8 @@ variable "network_id" {
 variable "subnetwork_id" {
   type = string
 }
+
+variable "api_gw_url" {
+  type = string
+  default = "http://localhost:6010/gateway"
+}
