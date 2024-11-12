@@ -42,9 +42,15 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+# dotnet publish folder
+publish/
+
 # app settings
 appsettings.*.json
 
 # docker volumes
 mysql/
 firestore_data/
+
+# google function zip
+function-source.zip

@@ -1,4 +1,5 @@
-@host = http://localhost:6010
+# @host = http://localhost:6010
+@host = http://34.171.109.25:6010
 
 ### People - Get people
 GET {{host}}/gateway/people-ms/people
